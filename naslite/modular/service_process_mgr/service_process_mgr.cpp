@@ -56,6 +56,9 @@ namespace nas
 		if (is_process_running(proc.get(), ec))
 			co_return;
 
+		if (!std::filesystem::exists(info.path, ec))
+			co_return;
+
 		app.logger->trace("prepare start process: {} {}", info.name, info.path);
 
 		std::vector<std::string> args = net::split(info.args, ' ');
