@@ -248,6 +248,9 @@ namespace nas
 		net::error_code ec;
 		std::filesystem::path filepath = app.exe_directory / process_name;
 
+		if (!std::filesystem::exists(filepath, ec))
+			co_return;
+
 		bp::process process(
 			p->ctx.get_executor(),
 			bp::filesystem::path(filepath),
